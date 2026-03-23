@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Novela Store</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      margin: 0;
+    }
+
+    header {
+      background: black;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 22px;
+    }
+
+    .search {
+      text-align: center;
+      padding: 10px;
+    }
+
+    input {
+      padding: 8px;
+      width: 80%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .buttons {
+      text-align: center;
+      margin: 10px;
+    }
+
+    .btn {
+      padding: 8px 12px;
+      margin: 5px;
+      background: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .product {
+      background: white;
+      width: 150px;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: black;
+      color: white;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>🛒 Novela Store</header>
+
+<div class="search">
+  <input type="text" placeholder="Search product..." onkeyup="searchProduct(this.value)">
+</div>
+
+<div class="buttons">
+  <button class="btn" onclick="filterProducts('all')">All</button>
+  <button class="btn" onclick="filterProducts('electronics')">Electronics</button>
+  <button class="btn" onclick="filterProducts('shoes')">Shoes</button>
+</div>
+
+<div class="container" id="products"></div>
+
+<footer>© 2026 Novela Store</footer>
+
+<script>
+
+const products = [
+  {
+    name: "Boat Rockerz",
+    price: "₹1799",
+    category: "electronics",
+    image: "https://via.placeholder.com/150",
+    link: "https://www.amazon.in"
+  },
+  {
+    name: "Smart Watch",
+    price: "₹1999",
+    category: "electronics",
+    image: "https://via.placeholder.com/150",
+    link: "https://www.amazon.in"
+  },
+  {
+    name: "Running Shoes",
+    price: "₹999",
+    category: "shoes",
+    image: "https://via.placeholder.com/150",
+    link: "https://www.flipkart.com"
+  },
+  {
+    name: "Casual Shoes",
+    price: "₹1299",
+    category: "shoes",
+    image: "https://via.placeholder.com/150",
+    link: "https://www.flipkart.com"
+  }
+];
+
+function displayProducts(items) {
+  const container = document.getElementById("products");
+  container.innerHTML = "";
+
+  items.forEach(p => {
+    container.innerHTML += `
+      <div class="product">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p>${p.price}</p>
+        <a href="${p.link}" target="_blank">
+          <button class="btn">Buy Now</button>
+        </a>
+      </div>
+    `;
+  });
+}
+
+function filterProducts(cat) {
+  if (cat === "all") {
+    displayProducts(products);
+  } else {
+    const filtered = products.filter(p => p.category === cat);
+    displayProducts(filtered);
+  }
+}
+
+function searchProduct(value) {
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(value.toLowerCase())
+  );
+  displayProducts(filtered);
+}
+
+displayProducts(products);
+
+</script>
+
+</body>
+</html>
